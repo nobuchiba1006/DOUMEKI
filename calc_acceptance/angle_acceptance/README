@@ -1,0 +1,74 @@
+**********************************************
+* How to make angle_accepcance and
+* QuickPhotonPropagatorMap
+* Kotoyo Hoshina 2007/04/01
+**********************************************
+
+1) Prepare dataset
+   dataset must be placed ./data directory.
+   symbolic link may work.
+   Make directory named "eps" and "gif" under current dir.
+   I recommend to generate them under ./data, and link it
+   to current directory.
+   e.g.
+   $ ln -s <somewhere>/angle_accept_data/337nm data
+   $ mkdir data/eps
+   $ mkdir data/gif
+   $ ln -s ./data/eps .
+   $ ln -s ./data/gif .
+
+   CAUTION:
+   input data must have two field in the beginning of file:
+   nevt 100 nrun 1000  or 
+   nevt 1000 nrun 1000  or 
+   depending on how you have generated the files.
+   DOMINANT doesn't fill these info, so you must do it by hand.
+   (you can use modify.sh placed upper directory)
+
+2) Make "input.list" file.
+   The file contains all list of input file.
+   Never mix up different wavelength.
+   The order of input file MUST BE ASCENDING ORDER of angle.
+   e.g.
+   ./data/eff_8mm_00deg_337nm.dat.modified
+   ./data/eff_8mm_01deg_337nm.dat.modified
+   ./data/eff_8mm_02deg_337nm.dat.modified
+   ...
+   ./data/eff_8mm_10deg_337nm.dat.modified
+   ...
+
+3) Generate QuickPhotonPropagatorMap.data
+   Type
+   $ root -l
+   > .x GeneratePropagatorMap.C+
+
+   Don't forget "+" after the scriptname, 
+   Using ACLiC saves your CPU time!
+
+   Generated file name is QuickPhotonPropagatorMap.data.
+   Rename it to avoid overwrite.
+  
+4) Calculate penetration factor.
+   Type
+   $ root -l
+   > .x GenerateSurvivingCurve.C+
+
+   Again, don't forget "+" after the scriptname.
+   Otherwise the script is painfully slow!!
+
+   Generated file name is penet.data.
+   Don't change the name UNTIL 5) HAS DONE.
+
+5) Generate angle_acceptance.data
+   Type
+   $ root -l plot_angle_acceptance.C
+
+   This program draws TGraph of angle acceptance curve.
+   Check the shape and the acceptance value at 0degree.
+   Acceptance at 0deg should be 1.
+   If not, something is wrong...
+
+   It generates angle_acceptance.data.
+   Rename it to avoid overwrite.
+
+

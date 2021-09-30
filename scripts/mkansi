@@ -1,0 +1,23 @@
+#!/bin/sh
+for i in `find $JUPITERROOT/sources -name '*.hh'`; do
+   fn=`basename $i`
+   dn=`dirname $i`
+   (cd $dn; $JUPITERROOT/scripts/mkansi.pl $fn; mv out/$fn .; rmdir out)
+done
+for i in `find $JUPITERROOT/sources -name '*.h'`; do
+   fn=`basename $i`
+   dn=`dirname $i`
+   (cd $dn; $JUPITERROOT/scripts/mkansi.pl $fn; mv out/$fn .; rmdir out)
+done
+for i in `find $JUPITERROOT/sources -name '*.cc'`; do
+   fn=`basename $i`
+   dn=`dirname $i`
+   (cd $dn; $JUPITERROOT/scripts/mkansi.pl $fn; mv out/$fn .; rmdir out)
+done
+for i in `find $JUPITERROOT/sources -name '*.icc'`; do
+   fn=`basename $i`
+   dn=`dirname $i`
+   (cd $dn; $JUPITERROOT/scripts/mkansi.pl $fn; mv out/$fn .; rmdir out)
+done
+
+exit 0

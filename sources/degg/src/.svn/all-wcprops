@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/125681/sandbox/dominant/sources/dom/src
+END
+J4DOM.cc
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/!svn/ver/125681/sandbox/dominant/sources/dom/src/J4DOM.cc
+END
+J4DOMPMT.cc
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/125681/sandbox/dominant/sources/dom/src/J4DOMPMT.cc
+END
+J4DOMPhotoCathode.cc
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/125681/sandbox/dominant/sources/dom/src/J4DOMPhotoCathode.cc
+END
+J4DOMBenthos.cc
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/125681/sandbox/dominant/sources/dom/src/J4DOMBenthos.cc
+END
+J4VDOMDetectorComponent.cc
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/!svn/ver/125681/sandbox/dominant/sources/dom/src/J4VDOMDetectorComponent.cc
+END
+J4DOMHarness.cc
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/125681/sandbox/dominant/sources/dom/src/J4DOMHarness.cc
+END
+J4DOMPMTHit.cc
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/125681/sandbox/dominant/sources/dom/src/J4DOMPMTHit.cc
+END
+J4DOMGel.cc
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/125681/sandbox/dominant/sources/dom/src/J4DOMGel.cc
+END
+J4DOMPMTSD.cc
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/!svn/ver/125681/sandbox/dominant/sources/dom/src/J4DOMPMTSD.cc
+END
+J4DOMInside.cc
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/!svn/ver/125681/sandbox/dominant/sources/dom/src/J4DOMInside.cc
+END
+J4DOMMaterialStore.cc
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/125681/sandbox/dominant/sources/dom/src/J4DOMMaterialStore.cc
+END
+J4DOMMainBoard.cc
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/125681/sandbox/dominant/sources/dom/src/J4DOMMainBoard.cc
+END
+J4DOMParameterList.cc
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/125681/sandbox/dominant/sources/dom/src/J4DOMParameterList.cc
+END

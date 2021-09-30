@@ -1,0 +1,44 @@
+HEAD *****************************************************************
+HEAD * ROMEO angle acceptance 
+HEAD *
+HEAD * This is the table of photon-acceptance of the IceCube PMT after
+HEAD * path through the glass+gel of DOM, as a function of
+HEAD * off-axis angle [deg].
+HEAD * This table is generated to calibrate DOMINANT itself with
+HEAD * GDOM measurement data, so that the acceptance values are not
+HEAD * multiplied by beam section.
+HEAD *
+HEAD * The acceptances are calculated by:
+HEAD *
+HEAD * acceptance = (Nphotons_accepted_by_PMT / Nphotons_inject_to_dom)
+HEAD *              / (acceptance @ 0deg)
+HEAD *
+HEAD * Data Format:
+HEAD * [off-axis angle [deg]] [acceptance]
+HEAD *
+HEAD *****************************************************************
+HEAD
+HEAD wavelenght : 520 nm  beam radius : 13inch
+HEAD
+
+ndata 19
+
+0 1
+10 0.991703
+20 0.959514
+30 0.912696
+40 0.847186
+50 0.767787
+60 0.664743
+70 0.569575
+80 0.475426
+90 0.390813
+100 0.310033
+110 0.23376
+120 0.151022
+130 0.0662074
+140 0.014232
+150 0.00224701
+160 0.00137312
+170 1.49659e-05
+180 0.00108841

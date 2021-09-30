@@ -1,0 +1,36 @@
+# =====================================================================
+#   initialize visualization in DAWNFILE
+# =====================================================================
+# 
+# // create empty scene ("world" is default)
+/vis/scene/create
+# 
+# // add volume to scene
+/vis/scene/add/volume
+#  
+# // create a scene handler for a specific graphics system
+# // edit the next line(s) to choose another graphic system
+/vis/sceneHandler/create DAWNFILE
+#/vis/open DAWNFILE
+# 
+# // create a viewer
+/vis/viewer/create
+#/vis/sceneHandler/attach
+
+/vis/viewer/reset
+/vis/viewer/set/viewpointThetaPhi 0. 0.
+/vis/viewer/zoom 1.0
+
+#  
+# // for drawing the tracks 
+#
+/tracking/storeTrajectory 1
+/vis/scene/endOfEventAction accumulate
+
+# // stored trajectory
+# Charged particle only 1 
+# all                   2 
+#
+/jupiter/tracking/ChooseStoredTrajectory 2 
+/vis/scene/add/trajectories
+

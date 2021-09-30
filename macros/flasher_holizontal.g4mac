@@ -1,0 +1,91 @@
+# ===========================================================
+#   set beam line parameters
+# ===========================================================
+
+# // set beam 
+/jupiter/generator ParticleBeam 
+#/jupiter/generator CircleBeam
+
+# //****************************************
+# // !!! ATTENTION !!!
+# // Particle must be defined at first !!!!
+# //****************************************
+# // set particle
+#/jupiter/beam/particle geantino 
+/jupiter/beam/particle opticalphoton 
+#/jupiter/beam/particle gamma
+
+# // Multiple scattering 
+#/process/inactivate msc
+#/process/activate msc
+
+# // set beam energy profile
+# // 0 = gaussian profile 
+# // 1 = flat profile 
+/jupiter/beam/energyprofile 0
+
+# // set energy
+#/jupiter/beam/energy 100 GeV
+/jupiter/beam/energy  2.76 eV
+
+# // set beamtype 
+# // 0 = isotropic mode 
+# // 1 = gaussian mode 
+#/jupiter/beam/beamtype 1 
+/jupiter/beam/beamtype 1 
+
+# // set convergence mode 
+# // 0 = divergence mode 
+# // 1 = injected from surrounding sphare to beam position 
+/jupiter/beam/convergence 0
+
+# // set range of costheta 
+#/jupiter/beam/mincostheta -1 
+#/jupiter/beam/maxcostheta 1
+
+# // set beam position profile 
+# // 0 = gaussian profile 
+# // 1 = flat profile 
+/jupiter/beam/positionprofile 0 
+
+# // set beam position 
+# for holizontal LED
+/jupiter/beam/position 11.8 0. -7.2 cm
+# for tilted LED
+#/jupiter/beam/position 11.6 0. -8.8 cm
+
+# // set beam position sigma 
+/jupiter/beam/positionsigmax 0. cm
+/jupiter/beam/positionsigmay 0. cm
+/jupiter/beam/positionsigmaz 0. cm
+
+# // set beam direction 
+# for holizontal LED
+/jupiter/beam/direction 0.98 0. 0.19 
+# for tilted LED
+#/jupiter/beam/direction 0.6211 0. -0.7834 
+
+# // set beam direction sigma 
+/jupiter/beam/directionsigma 0.21
+
+
+# // number of vertices (jet)
+/jupiter/beam/numberOfVertices 1
+
+# // number of particles in a vertices
+/jupiter/beam/numberOfParticles 1
+
+# // randomize polarization
+/jupiter/beam/isRandomPolarized 1
+
+#/tracking/verbose 1
+
+# // file open mode
+/jupiter/run/SetFileOpenMode recreate
+
+# output file name
+/jupiter/run/SetHitFileName hit_holizontal_10000000evt.dat
+
+/run/beamOn 10000000
+
+#/control/execute macros/direction.g4mac

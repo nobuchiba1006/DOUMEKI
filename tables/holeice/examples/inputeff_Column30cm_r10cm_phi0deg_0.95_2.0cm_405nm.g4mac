@@ -1,0 +1,10 @@
+/jupiter/generator ParticleBeam
+/jupiter/beam/particle opticalphoton
+/jupiter/beam/beamtype 0
+/jupiter/beam/position 20.826565 0.000000 18.050000 cm
+/jupiter/run/SetFileOpenMode add
+/jupiter/beam/energy 3.061728 eV
+/jupiter/run/SetHitFileName /disk19/users/ayumi_kiriki/HoleIce/uniform_30deg/nevt100000nrun200/dataeff_Column30cm_r10cm_phi0deg_0.95_2.0cm_405nm.dat
+/jupiter/run/SetHeaderString nevt 100000 nrun 200
+/control/execute macros/manybeamOn_100000evt_200bunch.g4mac
+exit

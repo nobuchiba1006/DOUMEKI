@@ -1,0 +1,98 @@
+#----------------------------- 
+# generator
+#----------------------------- 
+/jupiter/generator ParticleBeam
+
+#-----------------------------
+# general setting
+#-----------------------------
+# set particle
+/jupiter/beam/particle mu-
+
+#Set number of vertices to be generated per beam. 
+/jupiter/beam/numberOfVertices 1
+
+# number of particles per vertex
+/jupiter/beam/numberOfParticles 1
+
+# set T0
+/jupiter/beam/time 0. s
+
+#-----------------------------
+# polarization
+#-----------------------------
+# Randomize polarization: (0:1)=(false:true)
+/jupiter/beam/isRandomPolarized 0
+
+# polarization vector
+# effective if isRandomPolarized = 0
+/jupiter/beam/polarization 0 0 -1
+
+#-----------------------------
+# beam type
+#-----------------------------
+# - isotropic
+# - gaussian
+/jupiter/beam/beamtype gaussian
+
+#-----
+# for isotropic beam
+
+# set convergence mode
+# 0 = divergence mode
+# 1 = injected from surrounding sphare to beam position
+/jupiter/beam/convergence 0
+
+# set range costheta 
+#/jupiter/beam/mincostheta -0.7
+#/jupiter/beam/maxcostheta 0.7
+
+#-----
+# for gaussian beam
+
+# Set beam direction 
+/jupiter/beam/direction 0 0 -1
+
+# sigma of direction (gaussian)
+/jupiter/beam/directionsigma 0.1
+
+#-----------------------------
+# beam injection position profile
+#-----------------------------
+# // set beam position profile
+# // 0 = gaussian profile
+# // 1 = flat profile
+/jupiter/beam/positionprofile 1
+
+# for gaussian profile 
+/jupiter/beam/position 0. 0. 1.2 m
+/jupiter/beam/positionsigmax 10. cm
+/jupiter/beam/positionsigmay 10. cm
+/jupiter/beam/positionsigmaz 10. cm
+
+# for flat profile
+/jupiter/beam/positionminx -10. cm
+/jupiter/beam/positionminy -10. cm
+/jupiter/beam/positionminz 1.2 m
+/jupiter/beam/positionmaxx 10. cm
+/jupiter/beam/positionmaxy 10. cm
+/jupiter/beam/positionmaxz 1.2 m
+
+#-----------------------------
+# energy profile
+#-----------------------------
+#beam-injection-eneregy profile. 0:gaussian, 1:flat
+/jupiter/beam/energyprofile 1
+
+# for gaussian profile
+# set total energy (K + mc2)
+/jupiter/beam/energy  1. GeV
+/jupiter/beam/energysigma 0.5 GeV
+
+# for flat profile
+/jupiter/beam/energymin 0.5 GeV
+/jupiter/beam/energymax 1.5 GeV
+
+
+/run/beamOn 100
+

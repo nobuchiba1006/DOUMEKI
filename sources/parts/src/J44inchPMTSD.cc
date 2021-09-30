@@ -1,0 +1,169 @@
+// $Id: J44inchPMTSD.cc,v 1.2 2007/03/13 17:29:14 hoshina Exp $
+//*************************************************************************
+//* --------------------
+//* J44inchPMTSD
+//* --------------------
+//* (Description)
+//* 	Class for describing his/her sensitive detector.
+//*     
+//* (Update Record)
+//*	2000/12/08  K.Hoshina	Original version.
+//*     090315. important change!!!! attention!!! the photoncathode area changes!!!
+//*     2020/09/03 M.Suzuki Change the definition of the photocathode area
+//*     Change PMT grobal frame position to the local frame position
+//*************************************************************************
+
+#include "J44inchPMTSD.hh"
+#include "J44inchPMT.hh"
+#include <math.h>
+ 
+//=====================================================================
+//---------------------
+// class definition
+//---------------------
+
+//=====================================================================
+//* constructor -------------------------------------------------------
+
+J44inchPMTSD::J44inchPMTSD(J4VDetectorComponent* detector)
+		   :J4VSD<J44inchPMTHit>(detector)
+{  
+}
+
+//=====================================================================
+//* destructor --------------------------------------------------------
+
+J44inchPMTSD::~J44inchPMTSD()
+{
+}
+
+//=====================================================================
+//* Initialize --------------------------------------------------------
+
+void J44inchPMTSD::Initialize(G4HCofThisEvent* HCTE)
+{
+   //create hit collection(s) and
+   //push H.C. to "Hit Collection of This Event"
+  
+   MakeHitBuf(HCTE);  
+}
+
+//=====================================================================
+//* ProcessHits -------------------------------------------------------
+
+G4bool J44inchPMTSD::ProcessHits(G4Step* aStep, G4TouchableHistory* )
+{
+
+  std::cerr << "J44inchPMTSD::ProcessHits: called! " << G4endl;
+  
+  //In order to use Get function, you must call SetNewStep() at first.
+  
+  SetNewStep(aStep);
+  
+  std::cout <<"the step is set as "<<aStep->GetStepLength()<<std::endl;
+  
+  // If current prestep point is not on the surface of the PMT, return.
+  // Note that a geometrical information must be taken from prestep point.
+  //in the past the following were turned off. now we try to turn them on again.
+  
+  G4StepPoint* preStepPoint = GetPreStepPoint();
+  G4Track *track = GetTrack();
+  
+  if ( preStepPoint->GetStepStatus() != fGeomBoundary) {
+    std::cerr << "---------------------------------J44inchPMTSD::ProcessHits: the prestep point must on PMT surface. return " << G4endl; 
+    track->SetTrackStatus(fStopAndKill);
+    return FALSE;
+  }
+    
+  
+  // create a hit... 
+  
+  G4ThreeVector pre  = GetPrePosition();
+  
+  //Get local frame position and rotation relative to the global frame 
+  G4StepPoint* p1 = aStep->GetPreStepPoint();
+  G4ThreeVector coord1 = p1->GetPosition();
+  const G4AffineTransform transformation =
+    p1->GetTouchable()->
+    GetHistory()->GetTopTransform();
+  G4ThreeVector localPosition = transformation.TransformPoint(coord1);
+  
+  // <<<<<<<<<<< TMP_TREATMENT!!! <<<<<<<<<<<<<<
+  
+  G4double from0tocathode = 78.11-49.5 *mm;       
+  //  track->SetTrackStatus(fStopAndKill);
+
+  
+  if ( localPosition.z() < from0tocathode ) {
+    //Check the global coordinate
+    std::cerr << "J44inchPMTSD::ProcessHits:intersection = " << pre.x() << " " << pre.y()	<< " " << pre.z() << G4endl;
+    /*
+    //Check the local coordinate
+    std::cerr << "Local position = " << localPosition.x() << " " << localPosition.y() << " " << localPosition.z() << G4endl; 
+    */
+    std::cerr << "J44inchPMTSD::ProcessHits: the photon hits backside! return " << G4endl; 
+    std::cerr<<"!!!!!!!!!!attention returnning false!!!!!!!!!!!"<<G4endl;
+    track->SetTrackStatus(fStopAndKill);
+    return FALSE;
+  } 
+  
+  // <<<<<<<<<<< TMP_TREATMENT!!! <<<<<<<<<<<<<<
+  
+  G4double      ce    = 1.0;
+
+  G4String MyName = GetComponent()->GetName();
+  G4int    insideid = GetComponent()->GetMother()->GetMyID();
+  G4int    pmtid = GetComponent()->GetMyID();
+  
+  J44inchPMTHit* hit = new J44inchPMTHit(GetComponent(), pre, ce, insideid, pmtid); 
+  ((J44inchPMTHitBuf*)GetHitBuf())->insert(hit);
+  
+  
+  
+  
+  //#if 0
+  //#if 1
+  std::cerr <<"!survived!!!!"<<G4endl;
+  std::cerr << "J44inchPMTSD::ProcessHits:intersection = " << pre.x() << " " << pre.y() << " " << pre.z() << " " << MyName << G4endl;
+  std::cerr << "localPosition= " << localPosition.x() << " " << localPosition.y() << " " << localPosition.z() << G4endl;
+  
+  //#endif
+  
+  //kill current track...
+  
+  // G4Track *track = GetTrack();
+  track->SetTrackStatus(fStopAndKill);
+  // track->SetTrackStatus(fStopButAlive);
+  
+  return TRUE;
+  
+}
+
+//=====================================================================
+//* EndOfEvent --------------------------------------------------------
+
+void J44inchPMTSD::EndOfEvent(G4HCofThisEvent* )
+{			
+  // Create new hits and push them to "Hit Collection"
+  
+}
+
+
+//=====================================================================
+//* DrawAll -----------------------------------------------------------
+
+void J44inchPMTSD::DrawAll()
+{
+}
+
+//=====================================================================
+//* PrintAll ----------------------------------------------------------
+
+void J44inchPMTSD::PrintAll()
+{
+   G4int nHit = ((J44inchPMTHitBuf*)GetHitBuf())->entries();
+   G4cout << "------------------------------------------" << G4endl
+          << "*** PMThit (#hits=" << nHit << ")" << G4endl;
+   ((J44inchPMTHitBuf*)GetHitBuf())->PrintAllHits();
+}
+

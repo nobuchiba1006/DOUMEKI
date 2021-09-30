@@ -1,0 +1,8 @@
+DOMINANT + DEgg + HoleIce for Upgrade simulation 
+Added DEgg parts from Kotoyo's Dominant20200511 
+
+Replies from Ayumi: 
+ Added to Kotoyo's DOMINANT are sources/degg and Dominant_DEgg.cc
+ CMakeLists.txt except for in sources/dom are modified 
+ J4ParameterList.cc (about ExpHall size) and J4RunAction.cc (about output header) are also modified 
+

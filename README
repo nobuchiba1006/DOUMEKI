@@ -1,0 +1,63 @@
+********************************************
+* DOMINANT / JUPITER 
+* Geant4 based DOM full simulator
+* contact: Kotoyo Hoshina(hoshina@icecube.wisc.edu, slack:kotoyo)
+********************************************
+
+-------------------
+1) Prerequisit
+-------------------
+
+Install Geant4 with QT option. Then modify
+
+./env.sh
+
+to adjust your environment.
+
+Then, type
+
+$ bash
+$ source env.sh
+
+-------------------
+2) How to compile
+-------------------
+
+Type
+
+$ cd ../
+$ mkdir build
+$ cd build
+$ cmake ../dominant
+$ make
+
+Binary executable will be generated under build dir.
+
+------------------------------------
+3) run test
+------------------------------------
+
+Your bash shell need to know environment variables.
+source env.sh before running simulation.
+$ bash
+$ source env.sh
+
+Try
+
+$ ./dominant macros/test.mac
+$ ./dominant macros/test2.mac
+
+Both scripts generate output file "hit.dat"
+(modify sources/dom/src/J4PMTHit.cc to change the output fields)
+
+------------------------------------
+4) How to make acceptance tables
+------------------------------------
+
+See 
+
+macros/README
+calc_acceptance/angle_acceptance/README
+calc_acceptance/wavelength_acceptance/README
+
+

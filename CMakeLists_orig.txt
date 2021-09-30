@@ -1,0 +1,132 @@
+#---------------------------
+# 1) Basic Configuration
+#---------------------------
+
+cmake_minimum_required(VERSION 2.6 FATAL_ERROR)
+project (dominant)
+project (dominant_dom)
+project (dominant_degg)
+
+#---------------------------
+# 2) Find and Configure Geant4
+#---------------------------
+
+set(CMAKE_MODULE_PATH
+    ${PROJECT_SOURCE_DIR}/cmake/Modules
+    ${CMAKE_MODULE_PATH})
+
+option(WITH_GEANT4_UIVIS "Build example with Geant4 UI and Vis drivers" ON)
+if(WITH_GEANT4_UIVIS)
+  find_package(Geant4 REQUIRED ui_all vis_all)
+else()
+  find_package(Geant4 REQUIRED)
+endif()
+
+#---------------------------
+# 3) Configure the Project to Use Geant4 and DOMINANT Headers
+#---------------------------
+
+include(${Geant4_USE_FILE})
+add_subdirectory(sources)
+
+#---------------------------
+# 3) Configure the Project to Use Geant4 and DOMINANT Headers
+#---------------------------
+
+include_directories(${PROJECT_SOURCE_DIR}/sources/kern/include)
+include_directories(${PROJECT_SOURCE_DIR}/sources/exp/include)
+include_directories(${PROJECT_SOURCE_DIR}/sources/dom/include)
+include_directories(${PROJECT_SOURCE_DIR}/sources/degg/include)
+
+#---------------------------
+# 4) List the Sources to Build the Application 
+#---------------------------
+
+file(GLOB sources ${PROJECT_SOURCE_DIR}/sourses/*/src/*.cc)
+file(GLOB headers ${PROJECT_SOURCE_DIR}/sources/*/include/*.hh)
+
+#message(STATUS "  sources=${srcs}")
+#message(STATUS "  headers=${hhs}")
+
+#---------------------------
+# 5) Define and Link the Executable
+#---------------------------
+
+add_executable(dominant_dom Dominant_DOM.cc)
+add_executable(dominant_degg Dominant_DEgg.cc)
+target_link_libraries(dominant_dom ${Geant4_LIBRARIES} J4kern J4exp J4dom)
+target_link_libraries(dominant_degg ${Geant4_LIBRARIES} J4kern J4exp J4degg)
+
+#---------------------------
+# 6) Copy any Runtime Scripts to the Build Directory
+#---------------------------
+
+set(DOMINANT_SCRIPTS
+    matprop_gel_DOM.dat
+    matprop_gel_DEgg.dat
+    matprop_gel.dat
+    matprop_glass_DOM.dat
+    matprop_glass_DEgg.dat
+    matprop_glass.dat
+    env.sh
+    modify.sh
+    maker_holeice_prop.cpp
+    maker_holeice_prop.C
+    )
+
+foreach(_script ${DOMINANT_SCRIPTS})
+  configure_file(
+    ${PROJECT_SOURCE_DIR}/${_script}
+    ${PROJECT_BINARY_DIR}/${_script}
+    COPYONLY
+    )
+endforeach()
+
+macro(configure_files srcDir destDir)
+    message(STATUS "Configuring directory ${destDir}")
+    make_directory(${destDir})
+
+    file(GLOB templateFiles RELATIVE ${srcDir} ${srcDir}/*)
+    foreach(templateFile ${templateFiles})
+        set(srcTemplatePath ${srcDir}/${templateFile})
+        if(NOT IS_DIRECTORY ${srcTemplatePath})
+            message(STATUS "Configuring file ${templateFile}")
+            configure_file(
+                    ${srcTemplatePath}
+                    ${destDir}/${templateFile}
+                    @ONLY)
+        elseif(IS_DIRECTORY ${srcTemplatePath})
+            configure_files(${srcTemplatePath} ${destDir}/${templateFile})
+        endif(NOT IS_DIRECTORY ${srcTemplatePath})
+    endforeach(templateFile)
+endmacro(configure_files)
+
+configure_files(${PROJECT_SOURCE_DIR}/macros
+                ${PROJECT_BINARY_DIR}/macros)
+
+configure_files(${PROJECT_SOURCE_DIR}/scripts
+                ${PROJECT_BINARY_DIR}/scripts)
+
+configure_files(${PROJECT_SOURCE_DIR}/calc_acceptance
+                ${PROJECT_BINARY_DIR}/calc_acceptance)
+
+configure_files(${PROJECT_SOURCE_DIR}/submit
+                ${PROJECT_BINARY_DIR}/submit)
+
+configure_files(${PROJECT_SOURCE_DIR}/images
+                ${PROJECT_BINARY_DIR}/images)
+
+configure_files(${PROJECT_SOURCE_DIR}/seeds
+                ${PROJECT_BINARY_DIR}/seeds)
+
+configure_files(${PROJECT_SOURCE_DIR}/docs
+                ${PROJECT_BINARY_DIR}/docs)
+
+configure_files(${PROJECT_SOURCE_DIR}/examples
+                ${PROJECT_BINARY_DIR}/examples)
+
+
+ 
+
+
+

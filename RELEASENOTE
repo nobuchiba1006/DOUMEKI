@@ -1,0 +1,17 @@
+###################
+RELEASE NOTE
+###################
+
+Apr. 7 2021 Y. Ashida 
+ - Merged multiple streams of DOMINANT 
+    - Dominant20200511 from Kotoyo 
+    - HoleIce DEgg from Ayumi 
+    - mEgg from Mariko 
+ - Added to Kotoyo's DOMINANT are sources/degg and Dominant_DEgg.cc
+ - CMakeLists.txt except for in sources/dom are modified 
+ - J4ParameterList.cc (about ExpHall size) and J4RunAction.cc (about output header) are also modified
+
+Jul. 27 2020 K.Hoshina
+ - Updated old DOMINANT to support geant4.10.06.p01
+
+

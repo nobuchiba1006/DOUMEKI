@@ -1,0 +1,18 @@
+/jupiter/generator CircleBeam
+/jupiter/beam/circle/particle opticalphoton
+/jupiter/beam/circle/energy 3.64 eV
+/jupiter/beam/circle/radius 16.51 cm
+#/jupiter/beam/circle/radius 12.70 cm
+/jupiter/beam/circle/direction 0. 0. -1.
+/jupiter/beam/circle/position 0. 0. 0. cm
+/jupiter/beam/circle/translation 0 -0 30 cm
+/jupiter/beam/circle/rotations 0 0. 0 degree
+
+#/jupiter/beam/circle/translation 0 -7.18451044959 15.4072323796 cm
+#/jupiter/beam/circle/rotations 25 0. 0 degree
+#/jupiter/beam/circle/translation 13.022755533 0 -10.9273893647 cm
+#/jupiter/beam/circle/rotations 130 0 0 degree
+
+
+#/control/execute macros/visdawnf.g4mac
+

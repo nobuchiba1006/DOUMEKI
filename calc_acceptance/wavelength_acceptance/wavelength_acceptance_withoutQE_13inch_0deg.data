@@ -1,0 +1,85 @@
+HEAD *****************************************************************
+HEAD * ROMEO wavelength acceptance data
+HEAD *
+HEAD * This is the table of photon-acceptance of the IceCube PMT after
+HEAD * path through the glass+gel of DOM, as a function of wavelength.
+HEAD * The injection angle (off-axis angle) is 0deg.
+HEAD * This table is generated to calibrate DOMINANT itself with
+HEAD * GDOM measurement data, so that the acceptance values are not
+HEAD * multiplied by beam section.
+HEAD *
+HEAD * The acceptances are calculated by:
+HEAD *
+HEAD * acceptance = Nphotons_accepted_by_PMT / Nphotons_inject_to_dom
+HEAD *
+HEAD * Data Format:
+HEAD * [wavelength[m]] [acceptance]
+HEAD *
+HEAD *****************************************************************
+HEAD
+HEAD angle : 0deg   beam radius : 13inch
+HEAD
+
+ndata 61
+
+270e-9    7.28714e-05
+280e-9    7.28714e-05
+290e-9    5.49112e-05
+300e-9    0.000137253
+305e-9    0.00483693
+310e-9    0.0208722
+315e-9    0.0349243
+320e-9    0.0519792
+325e-9    0.0859295
+330e-9    0.124834
+335e-9    0.188424
+340e-9    0.239164
+345e-9    0.323023
+350e-9    0.375559
+355e-9    0.414971
+360e-9    0.44302
+365e-9    0.485971
+370e-9    0.512738
+375e-9    0.541005
+380e-9    0.561917
+385e-9    0.578134
+390e-9    0.588013
+395e-9    0.603539
+400e-9    0.61369
+405e-9    0.616963
+410e-9    0.621151
+415e-9    0.628399
+420e-9    0.630425
+425e-9    0.633633
+430e-9    0.636977
+435e-9    0.638732
+440e-9    0.641426
+445e-9    0.644169
+450e-9    0.646326
+460e-9    0.648203
+470e-9    0.654587
+480e-9    0.658221
+490e-9    0.662409
+500e-9    0.665901
+510e-9    0.667041
+520e-9    0.66952
+530e-9    0.673212
+540e-9    0.673522
+550e-9    0.675807
+560e-9    0.677648
+570e-9    0.67785
+580e-9    0.678245
+590e-9    0.679633
+600e-9    0.680184
+610e-9    0.679537
+620e-9    0.678405
+630e-9    0.678475
+640e-9    0.676065
+650e-9    0.675835
+660e-9    0.675322
+670e-9    0.672884
+680e-9    0.671512
+690e-9    0.669575
+700e-9    0.668312
+710e-9    0.666817
+720e-9    0.666817

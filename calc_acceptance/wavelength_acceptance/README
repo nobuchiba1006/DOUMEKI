@@ -1,0 +1,54 @@
+**********************************************
+* How to make wavelength_accepcance 
+* Kotoyo Hoshina 2007/04/01
+**********************************************
+
+1) Prepare dataset
+   dataset must be placed ./data directory.
+   symbolic link may work.
+   Make directory named "eps" and "gif" under current dir.
+   I recommend to generate them under ./data, and link it
+   to current directory.
+   e.g.
+   $ ln -s <somewhere>/wavelength_accept_data/ data
+   $ mkdir data/eps
+   $ mkdir data/gif
+   $ ln -s ./data/eps .
+   $ ln -s ./data/gif .
+
+   CAUTION:
+   input data must have two field in the beginning of file:
+   nevt 100 nrun 1000  or 
+   nevt 1000 nrun 1000  or 
+   depending on how you generate the files.
+   DOMINANT doesn't fill these info, so you must do it by hand.
+   (you can use modify.sh placed upper directory)
+
+2) Make "input.list" file.
+   The file contains all list of input file.
+   The order of input file MUST BE ASCENDING ORDER of wavelength.
+   e.g.
+   ./data/eff_8mm_00deg_270nm.dat.modified
+   ./data/eff_8mm_00deg_285nm.dat.modified
+   ...
+
+3) Calculate penetration factor.
+   Type
+   $ root -l
+   > .x GenerateSurvivingCurve.C+
+
+   Don't forget "+" after the scriptname.
+   Otherwise the script is painfully slow!!
+
+   Generated file name is penet.data.
+   Don't change the name UNTIL 4) HAS DONE.
+
+4) Generate angle_acceptance.data
+   Type
+   $ root -l plot_wavelength_acceptance.C
+
+   This program draws TGraph of wavelength acceptance curve.
+   It generates wavelength_acceptance_withoutQE.data.
+   Rename it to avoid overwrite.
+
+
