@@ -13,6 +13,7 @@
 //*	2001/02/18  K.Hoshina	Original version.
 //*************************************************************************
 
+#include "J4RunAction.hh"
 #include "J4VHit.hh"
 #include "J4Output.hh"
 #include "G4THitsCollection.hh"
@@ -40,6 +41,8 @@ public:
   J48inchPMTHit();
   J48inchPMTHit(J4VComponent  *dtc,
                G4ThreeVector  pre,
+               G4ThreeVector  localpos,
+               G4ThreeVector  localdir,
                G4double       ce);
   	 	            
   virtual ~J48inchPMTHit();
@@ -54,11 +57,15 @@ public:
   // getters
   inline G4ThreeVector GetPosition()       const { return fPosition;      }
   inline G4double      GetCE()             const { return fCE;     }
+  inline G4ThreeVector GetLocalPosition()  const { return fLocalPosition; }
+  inline G4ThreeVector GetLocalDirection() const { return fLocalDirection; }
 
   // setters 
 
   inline void SetPosition(G4ThreeVector x) { fPosition   = x; }
   inline void SetCE(G4double x)            { fCE = x; }
+  inline void SetLocalPosition(G4ThreeVector x) { fLocalPosition   = x; }
+  inline void SetLocalDirection(G4ThreeVector x) { fLocalDirection   = x; }
     
 private: 
 
@@ -66,6 +73,8 @@ private:
   static J4Output              *fOutput;       // Pointer to Output Module
 
   G4ThreeVector fPosition;    // position
+  G4ThreeVector fLocalPosition;    // position
+  G4ThreeVector fLocalDirection;    // position
   G4double      fCE;          // mean CE
   
 };

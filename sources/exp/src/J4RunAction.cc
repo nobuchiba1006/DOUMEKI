@@ -13,6 +13,22 @@
 
 #define VERBOSE 1
 
+ 
+int J4RunAction::RunID;
+int J4RunAction::EventID;
+int J4RunAction::ModID;
+float J4RunAction::HitPos[3];
+float J4RunAction::GenPos[3];
+float J4RunAction::LocalPos[3];
+float J4RunAction::LocalDir[3];
+float J4RunAction::wavelength;
+float J4RunAction::angle;
+float J4RunAction::ce;
+
+
+
+
+
 // ====================================================================
 //
 //      class description
@@ -21,7 +37,7 @@
 
 ///////////////////////////////////////////////////////////////
 J4RunAction::J4RunAction(const G4String& fname)
-  : fHitFileName(fname), fFileOpenMode("recreate"), 
+  : fHitFileName(fname), fHitRootFileName(""), fFileOpenMode("recreate"), 
     fHeaderString("")
 ///////////////////////////////////////////////////////////////
 {
@@ -33,6 +49,10 @@ J4RunAction::J4RunAction(const G4String& fname)
 void J4RunAction::BeginOfRunAction(const G4Run*)
 ////////////////////////////////////////////////////////
 {
+
+
+
+
 
   // choose file open mode
   if (fFileOpenMode == "recreate") {
@@ -100,6 +120,10 @@ void J4RunAction::BeginOfRunAction(const G4Run*)
   //UI-> ApplyCommand("/vis/scene/notifyHandlers");
   //if(G4VVisManager::GetConcreteInstance()) UI-> ApplyCommand("/vis/clear/view"); 
 }
+
+void J4RunAction::CloseRootFile(){
+}
+
 
 //////////////////////////////////////////////////////
 void J4RunAction::EndOfRunAction(const G4Run* aRun)

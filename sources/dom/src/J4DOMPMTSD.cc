@@ -84,12 +84,40 @@ G4bool J4DOMPMTSD::ProcessHits(G4Step* aStep, G4TouchableHistory* )
     }
 
     // <<<<<<<<<<< TMP_TREATMENT!!! <<<<<<<<<<<<<<
+  	// 
+  
+	G4double      ce    = 1.0;
+  
+	G4StepPoint* p1 = aStep->GetPreStepPoint();
+	G4ThreeVector coord1 = p1->GetPosition();
+
+	const G4AffineTransform transformation =
+    p1->GetTouchable()->
+    GetHistory()->GetTopTransform();
+  
+	G4ThreeVector localPosition = transformation.TransformPoint(coord1);
+  
 
     G4double      energy = GetTotalEnergy();
     G4double      tof    = GetTof();
 
-    J4DOMPMTHit* hit = new J4DOMPMTHit(GetComponent(), pre, energy, tof); 
+
+	G4String MyName = GetComponent()->GetName();
+    G4int    insideid = GetComponent()->GetMother()->GetMyID();
+    G4int    pmtid = GetComponent()->GetMyID();
+    
+    G4ThreeVector mom = aStep->GetTrack()->GetMomentum().unit();
+    G4ThreeVector org(0,0,0);
+    G4ThreeVector local_pos = transformation.TransformPoint(coord1);
+    G4ThreeVector local_mom = transformation.TransformPoint(mom);
+    G4ThreeVector local_org = transformation.TransformPoint(org);
+    G4ThreeVector local_dir = (local_mom-local_org).unit();
+
+    
+    J4DOMPMTHit* hit = new J4DOMPMTHit(GetComponent(), pre, local_pos, local_dir, ce, energy, tof); 
     ((J4DOMPMTHitBuf*)GetHitBuf())->insert(hit);
+  
+
 
 #if 0
     G4cerr << "J4DOMPMTSD::ProcessHits:intersection = " << pre.x() << " " << pre.y() 

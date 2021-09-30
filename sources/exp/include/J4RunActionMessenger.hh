@@ -37,6 +37,7 @@ class J4RunActionMessenger: public G4UImessenger
   private: //commands
     G4UIdirectory *             fRunActionDir;
     G4UIcmdWithAString *        fHitFileNameCmd;
+    G4UIcmdWithAString *        fHitRootFileNameCmd;
     G4UIcmdWithAString *        fSetHeaderCmd;
     G4UIcmdWithAString *        fAddHeaderCmd;
     G4UIcmdWithAString *        fFileOpenModeCmd;

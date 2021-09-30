@@ -41,18 +41,34 @@ class J4RunAction : public G4UserRunAction {
    virtual void   EndOfRunAction(const G4Run* aRun);
    G4String       GetFileOpenMode() const                  { return fFileOpenMode; }
    G4String       GetHeaderString() const                  { return fHeaderString; }
+   G4String       GetHitRootFileName() const               { return fHitRootFileName; }
    G4String       GetHitFileName() const                   { return fHitFileName; }
    std::ofstream& GetOutputFileStream()                    { return fOfs; }
    G4int          GetRunNumber() const                     { return fRunNumber; }
    void           SetFileOpenMode(const G4String &mo = "recreate") { fFileOpenMode = mo; } 
    void           SetHeaderString(const G4String &st)       { fHeaderString= st; } 
    void           AddHeaderString(const G4String &st)       { fHeaderString += st; } 
+   void           SetHitRootFileName(const G4String& fname){ fHitRootFileName = fname; }
    void           SetHitFileName(const G4String& fname)    { fHitFileName = fname; }
    void           SetRunNumber(G4int n)                    { fRunNumber = n; }
+
+   static int ModID;
+   static int RunID;
+   static int EventID;
+   static float HitPos[3];
+   static float GenPos[3];
+   static float LocalPos[3];
+   static float LocalDir[3];
+   static float wavelength;
+   static float angle;
+   static float ce;
+
+   void           CloseRootFile();
 
  private:
 
    G4String        fHitFileName;
+   G4String        fHitRootFileName;
    G4String        fFileOpenMode;
    G4String        fHeaderString;
    G4int           fRunNumber;

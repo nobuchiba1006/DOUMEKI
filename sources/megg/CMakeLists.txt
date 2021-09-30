@@ -36,30 +36,21 @@ include_directories(${PROJECT_SOURCE_DIR}/sources/exp/include)
 include_directories(${PROJECT_SOURCE_DIR}/sources/degg/include)
 
 set(J4degg_src
-#	src/J4DEggShield.cc
-	src/J4DEggOkamoto.cc
-	src/J4DEggOkamotoHit.cc
-	src/J4DEggOkamotoSD.cc
-	src/J4DEgg.cc
-	src/J4DEggGel.cc
-#	src/J4DEggGelHit.cc
-#	src/J4DEggGelSD.cc
-#	src/J4DEggHarness.cc
-	src/J4DEggInside.cc
-#	src/J4DEggInsideHit.cc
-#	src/J4DEggInsideSD.cc
-#	src/J4DEggMainBoard.cc
-	src/J4DEggMaterialStore.cc
-	src/J4DEggParameterList.cc
-#	src/J4DEggPhotoCathode.cc
-	src/J4DEggPMT.cc
-	src/J4DEggPMTHit.cc
-	src/J4DEggPMTSD.cc
-#	src/J4DEggFlasher.cc
-	src/J4VDEggDetectorComponent.cc
+    src/J4MEgg.cc
+    src/J4MEggGel.cc
+    src/J4MEggGelHit.cc
+    src/J4MEggGelSD.cc
+    src/J4MEggInside.cc
+    src/J4MEggParameterList.cc
 )
 
 add_library(J4degg SHARED ${J4degg_src})
 
 # List any source specific properties here
+
+
+
+
+
+
 

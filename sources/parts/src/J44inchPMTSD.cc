@@ -115,11 +115,18 @@ G4bool J44inchPMTSD::ProcessHits(G4Step* aStep, G4TouchableHistory* )
   G4int    insideid = GetComponent()->GetMother()->GetMyID();
   G4int    pmtid = GetComponent()->GetMyID();
   
-  J44inchPMTHit* hit = new J44inchPMTHit(GetComponent(), pre, ce, insideid, pmtid); 
+  G4ThreeVector mom = aStep->GetTrack()->GetMomentum().unit();
+  G4ThreeVector org(0,0,0);
+  G4ThreeVector local_pos = transformation.TransformPoint(coord1);
+  G4ThreeVector local_mom = transformation.TransformPoint(mom);
+  G4ThreeVector local_org = transformation.TransformPoint(org);
+  G4ThreeVector local_dir = (local_mom-local_org).unit();
+
+  G4double      energy = GetTotalEnergy();
+  G4double      tof    = GetTof();
+  
+  J44inchPMTHit* hit = new J44inchPMTHit(GetComponent(), pre, local_pos, local_dir, ce, insideid, pmtid); 
   ((J44inchPMTHitBuf*)GetHitBuf())->insert(hit);
-  
-  
-  
   
   //#if 0
   //#if 1

@@ -14,8 +14,8 @@ MESSAGE("adding sub directories")
 
 add_subdirectory(kern)
 add_subdirectory(exp)
-#add_subdirectory(dom)
-#add_subdirectory(degg)
+add_subdirectory(dom)
+add_subdirectory(degg)
 add_subdirectory(lom)
 
 
