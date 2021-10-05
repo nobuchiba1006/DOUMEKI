@@ -10,8 +10,6 @@ project (doumeki_lom)
 
 #root directory
 
-include_directories(/proj/soft/ROOT/6.22.00/Install/include/)
-
 #---------------------------
 # 2) Find and Configure Geant4
 #---------------------------
@@ -23,6 +21,8 @@ else()
   find_package(Geant4 REQUIRED)
 endif()
 
+  
+#find_package(ROOT REQUIRED)
 #---------------------------
 # 3) Configure the Project to Use Geant4 and DOMINANT Headers
 #---------------------------
@@ -41,6 +41,7 @@ include_directories(${PROJECT_SOURCE_DIR}/sources/dom/include)
 include_directories(${PROJECT_SOURCE_DIR}/sources/degg/include)
 include_directories(${PROJECT_SOURCE_DIR}/sources/megg/include)
 include_directories(${PROJECT_SOURCE_DIR}/sources/lom/include)
+include_directories($ENV{ROOTSYS}/include/)
 
 #---------------------------
 # 5) List the Sources to Build the Application 
@@ -56,7 +57,7 @@ message(STATUS "  headers=${hhs}")
 # 6) Define and Link the Executable
 #---------------------------
 
-LINK_DIRECTORIES(/proj/soft/ROOT/6.22.00/Install/lib/)
+LINK_DIRECTORIES($ENV{ROOTSYS}/lib/)
 
 add_executable(doumeki_dom Doumeki_DOM.cc ${srcs} ${hhs})
 add_executable(doumeki_degg Doumeki_DEgg.cc ${srcs} ${hhs})
@@ -69,18 +70,10 @@ target_link_libraries(doumeki_megg ${Geant4_LIBRARIES})
 target_link_libraries(doumeki_lom ${Geant4_LIBRARIES})
 
 # used for root environment
-target_link_libraries(doumeki_dom ${Geant4_LIBRARIES} J4kern J4exp J4lom)
-target_link_libraries(doumeki_dom Core Cint RIO Net Hist Graf Graf3d Gpad Tree Rint Postscript Matrix Physics MathCore Thread)
-
-target_link_libraries(doumeki_degg ${Geant4_LIBRARIES} J4kern J4exp J4lom)
-target_link_libraries(doumeki_degg Core Cint RIO Net Hist Graf Graf3d Gpad Tree Rint Postscript Matrix Physics MathCore Thread)
-
-target_link_libraries(doumeki_megg ${Geant4_LIBRARIES} J4kern J4exp J4lom)
-target_link_libraries(doumeki_megg Core Cint RIO Net Hist Graf Graf3d Gpad Tree Rint Postscript Matrix Physics MathCore Thread)
-
-target_link_libraries(doumeki_lom ${Geant4_LIBRARIES} J4kern J4exp J4lom)
-target_link_libraries(doumeki_lom Core Cint RIO Net Hist Graf Graf3d Gpad Tree Rint Postscript Matrix Physics MathCore Thread)
-
+target_link_libraries(doumeki_dom  Core Imt RIO Net Hist Graf Graf3d Gpad ROOTVecOps Tree TreePlayer Rint Postscript Matrix Physics MathCore Thread MultiProc ROOTDataFrame)
+target_link_libraries(doumeki_degg Core Imt RIO Net Hist Graf Graf3d Gpad ROOTVecOps Tree TreePlayer Rint Postscript Matrix Physics MathCore Thread MultiProc ROOTDataFrame)
+target_link_libraries(doumeki_megg Core Imt RIO Net Hist Graf Graf3d Gpad ROOTVecOps Tree TreePlayer Rint Postscript Matrix Physics MathCore Thread MultiProc ROOTDataFrame)
+target_link_libraries(doumeki_lom  Core Imt RIO Net Hist Graf Graf3d Gpad ROOTVecOps Tree TreePlayer Rint Postscript Matrix Physics MathCore Thread MultiProc ROOTDataFrame)
 
 
 #---------------------------

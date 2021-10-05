@@ -21,6 +21,12 @@ J4RunActionMessenger::J4RunActionMessenger(J4RunAction * tracking)
   fRunActionDir = new G4UIdirectory("/jupiter/run/");
   fRunActionDir->SetGuidance("JUPITER Run commands.");
 
+
+  fHitRootFileNameCmd = new G4UIcmdWithAString("/jupiter/run/SetHitRootFileName",this);
+  fHitRootFileNameCmd->SetGuidance("Set hit root file name");
+  fHitRootFileNameCmd->SetParameterName("filename",true,true);
+  fHitRootFileNameCmd->SetDefaultValue("");
+
   fHitFileNameCmd = new G4UIcmdWithAString("/jupiter/run/SetHitFileName",this);
   fHitFileNameCmd->SetGuidance("Set hit file name");
   fHitFileNameCmd->SetParameterName("filename",true,true);
@@ -52,6 +58,7 @@ J4RunActionMessenger::J4RunActionMessenger(J4RunAction * tracking)
 J4RunActionMessenger::~J4RunActionMessenger()
 {
    delete fHitFileNameCmd;;
+   delete fHitRootFileNameCmd;;
    delete fSetHeaderCmd;;
    delete fAddHeaderCmd;;
    delete fFileOpenModeCmd;;
@@ -65,7 +72,9 @@ void J4RunActionMessenger::SetNewValue(G4UIcommand * command,G4String newValues)
 
   if( command == fHitFileNameCmd ) {
      fRunAction->SetHitFileName(newValues); 
-  } else if ( command == fSetHeaderCmd ) {
+  } else if( command == fHitRootFileNameCmd ) {
+     fRunAction->SetHitRootFileName(newValues); 
+  }else if ( command == fSetHeaderCmd ) {
      fRunAction->SetHeaderString(newValues); 
   } else if ( command == fAddHeaderCmd ) {
      fRunAction->AddHeaderString(newValues); 
@@ -90,6 +99,8 @@ G4String J4RunActionMessenger::GetCurrentValue(G4UIcommand * command)
 
    if ( command == fHitFileNameCmd ) {
       cv = fRunAction->GetHitFileName();
+   } else if ( command == fHitRootFileNameCmd ) {
+      cv = fRunAction->GetHitRootFileName();
    } else if ( command == fSetHeaderCmd ) {
       cv = fRunAction->GetHeaderString();
    } else if ( command == fAddHeaderCmd ) {

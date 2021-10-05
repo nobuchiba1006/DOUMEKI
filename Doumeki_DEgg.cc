@@ -317,6 +317,7 @@ int main(int argc, char** argv)
   // terminating...
   //-----------------------
 
+  ((J4RunAction*) (runManager-> GetUserRunAction()))->CloseRootFile();
   //#ifdef G4VIS_USE
   delete visManager;
   delete runManager;

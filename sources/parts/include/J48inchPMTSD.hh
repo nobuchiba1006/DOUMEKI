@@ -13,6 +13,7 @@
 //*	2003/03/18  K.Hoshina	Original version.
 //*************************************************************************
  
+#include "J4RunAction.hh"
 #include "J4VSD.hh"
 #include "J48inchPMTHit.hh"
 #include "J4ChargeResponse.hh"

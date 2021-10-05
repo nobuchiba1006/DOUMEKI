@@ -202,11 +202,24 @@ G4bool J48inchPMTSD::ProcessHits(G4Step* aStep, G4TouchableHistory* )
   // <<<<<<<<<<< TMP_TREATMENT!!! <<<<<<<<<<<<<<
   
   
-  J48inchPMTHit* hit = new J48inchPMTHit(GetComponent(), pre, ce); 
+  G4String MyName = GetComponent()->GetName();
+  G4int    insideid = GetComponent()->GetMother()->GetMyID();
+  G4int    pmtid = GetComponent()->GetMyID();
+  
+  G4ThreeVector mom = aStep->GetTrack()->GetMomentum().unit();
+  G4ThreeVector org(0,0,0);
+  G4ThreeVector local_pos = transformation.TransformPoint(coord1);
+  G4ThreeVector local_mom = transformation.TransformPoint(mom);
+  G4ThreeVector local_org = transformation.TransformPoint(org);
+  G4ThreeVector local_dir = (local_mom-local_org).unit();
+
+  G4double      energy = GetTotalEnergy();
+  G4double      tof    = GetTof();
+  
+  J48inchPMTHit* hit = new J48inchPMTHit(GetComponent(), pre, local_pos, local_dir, ce); 
   ((J48inchPMTHitBuf*)GetHitBuf())->insert(hit);
   
-  G4String MyName = GetComponent()->GetName();
-  
+ 
 //#if 0
 #if 1
   std::cout <<"!survived!!!!"<< std::endl;

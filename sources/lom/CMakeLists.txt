@@ -36,30 +36,16 @@ include_directories(${PROJECT_SOURCE_DIR}/sources/exp/include)
 include_directories(${PROJECT_SOURCE_DIR}/sources/lom/include)
 
 set(J4lom_src
-#	src/J4LOMShield.cc
-	src/J4LOMOkamoto.cc
-	src/J4LOMOkamotoHit.cc
-	src/J4LOMOkamotoSD.cc
-	src/J4LOM.cc
-	src/J4LOMGel.cc
-#	src/J4LOMGelHit.cc
-#	src/J4LOMGelSD.cc
-#	src/J4LOMHarness.cc
-	src/J4LOMInside.cc
-#	src/J4LOMInsideHit.cc
-#	src/J4LOMInsideSD.cc
-#	src/J4LOMMainBoard.cc
-	src/J4LOMMaterialStore.cc
-	src/J4LOMParameterList.cc
-#	src/J4LOMPhotoCathode.cc
-	src/J4LOMPMT.cc
-	src/J4LOMPMTHit.cc
-	src/J4LOMPMTSD.cc
-#	src/J4LOMFlasher.cc
-	src/J4LOMDetectorComponent.cc
+    src/J4LOM.cc
+    src/J4LOMGel.cc
+    src/J4LOMGelHit.cc
+    src/J4LOMGelSD.cc
+    src/J4LOMInside.cc
+    src/J4LOMParameterList.cc
 )
 
 add_library(J4lom SHARED ${J4lom_src})
 
 # List any source specific properties here
+
 

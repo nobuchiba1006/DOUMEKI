@@ -34,8 +34,11 @@ J4Output*             J48inchPMTHit::fOutput = 0 ;
 
 J48inchPMTHit::J48inchPMTHit(J4VComponent *dtc,
                 G4ThreeVector         position, // position
+               	G4ThreeVector  localpos,
+               	G4ThreeVector  localdir,
                 G4double              ce)       // average CE
              : J4VHit(dtc), fPosition(position), 
+				 fLocalPosition(localpos), fLocalDirection(localdir),
                fCE(ce)
 {
 }
@@ -86,6 +89,51 @@ void J48inchPMTHit::Output(G4HCofThisEvent* )
        ///  << std::setiosflags(std::ios::floatfield) 
        //  << std::setprecision(8)
          << std::endl;
+
+
+	 J4RunAction* j4runaction = ((J4RunAction*) (G4RunManager::GetRunManager()->GetUserRunAction()));
+ 	 if(j4runaction->trout!=nullptr){
+
+
+		int pos_PMT = MyName.rfind("PMT");
+		MyName = MyName.substr(pos_PMT+3, 2);
+
+		j4runaction->EventID = eventID;
+		j4runaction->ModID   = atoi(MyName.c_str());
+		j4runaction->HitPos[0] = fPosition.x();
+		j4runaction->HitPos[1] = fPosition.y();
+		j4runaction->HitPos[2] = fPosition.z();
+		j4runaction->LocalPos[0] = fLocalPosition.x();
+		j4runaction->LocalPos[1] = fLocalPosition.y();
+		j4runaction->LocalPos[2] = fLocalPosition.z();
+  		j4runaction->LocalDir[0] = fLocalDirection.x();
+		j4runaction->LocalDir[1] = fLocalDirection.y();
+		j4runaction->LocalDir[2] = fLocalDirection.z();
+		j4runaction->ce = fCE;
+   
+
+		G4ThreeVector pos = anEvent->GetPrimaryVertex()->GetPosition();
+		
+		j4runaction->GenPos[0] = pos.x();
+		j4runaction->GenPos[1] = pos.y();
+		j4runaction->GenPos[2] = pos.z();
+	
+		double ene = anEvent->GetPrimaryVertex()->GetPrimary()->GetKineticEnergy()/eV;
+		G4ThreeVector dir = anEvent->GetPrimaryVertex()->GetPrimary()->GetMomentumDirection().unit();
+
+		double th = acos(dir.z());
+
+		j4runaction->wavelength = 1240.0/ene;
+		j4runaction->angle = th;
+		j4runaction->trout->Fill();
+
+	}
+
+
+
+
+
+
   }
 
 	

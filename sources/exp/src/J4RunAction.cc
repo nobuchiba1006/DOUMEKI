@@ -13,6 +13,25 @@
 
 #define VERBOSE 1
 
+ 
+TFile* J4RunAction::fout = nullptr;
+TTree* J4RunAction::trout = nullptr;
+
+int J4RunAction::RunID;
+int J4RunAction::EventID;
+int J4RunAction::ModID;
+float J4RunAction::HitPos[3];
+float J4RunAction::GenPos[3];
+float J4RunAction::LocalPos[3];
+float J4RunAction::LocalDir[3];
+float J4RunAction::wavelength;
+float J4RunAction::angle;
+float J4RunAction::ce;
+
+
+
+
+
 // ====================================================================
 //
 //      class description
@@ -21,7 +40,7 @@
 
 ///////////////////////////////////////////////////////////////
 J4RunAction::J4RunAction(const G4String& fname)
-  : fHitFileName(fname), fFileOpenMode("recreate"), 
+  : fHitFileName(fname), fHitRootFileName(""), fFileOpenMode("recreate"), 
     fHeaderString("")
 ///////////////////////////////////////////////////////////////
 {
@@ -33,6 +52,32 @@ J4RunAction::J4RunAction(const G4String& fname)
 void J4RunAction::BeginOfRunAction(const G4Run*)
 ////////////////////////////////////////////////////////
 {
+
+
+   if(fHitRootFileName.size()!=0){
+
+	  if(fout==nullptr){
+		fout = new TFile(fHitRootFileName.c_str(), "RECREATE");	
+		trout = new TTree("tree", "tree");
+		trout->Branch("RunID", &RunID, "RunID/I");		
+		trout->Branch("EventID", &EventID, "EventID/I");		
+		trout->Branch("ModID", &ModID, "ModID/I");		
+		trout->Branch("HitPos", HitPos, "HitPos[3]/F");		
+		trout->Branch("GenPos", GenPos, "GenPos[3]/F");		
+		trout->Branch("LocalHitPos", LocalPos, "LocalHitPos[3]/F");		
+		trout->Branch("LocalDir", LocalDir, "LocalDir[3]/F");		
+		trout->Branch("wavelength", &wavelength, "wavelength/F");		
+		trout->Branch("angle", &angle, "angle/F");		
+		trout->Branch("ce", &ce, "ce/F");		
+	  }
+
+  }
+
+  RunID = fRunNumber; 
+
+
+
+
 
   // choose file open mode
   if (fFileOpenMode == "recreate") {
@@ -100,6 +145,16 @@ void J4RunAction::BeginOfRunAction(const G4Run*)
   //UI-> ApplyCommand("/vis/scene/notifyHandlers");
   //if(G4VVisManager::GetConcreteInstance()) UI-> ApplyCommand("/vis/clear/view"); 
 }
+
+void J4RunAction::CloseRootFile(){
+	if(trout!=nullptr){
+	  fout->cd();
+	  trout->Write();
+	  delete trout;
+	  fout->Close();
+  }
+}
+
 
 //////////////////////////////////////////////////////
 void J4RunAction::EndOfRunAction(const G4Run* aRun)

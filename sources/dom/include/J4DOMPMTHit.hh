@@ -13,6 +13,7 @@
 //*	2001/02/18  K.Hoshina	Original version.
 //*************************************************************************
 
+#include "J4RunAction.hh"
 #include "J4VHit.hh"
 #include "J4Output.hh"
 #include "G4THitsCollection.hh"
@@ -40,7 +41,10 @@ public:
   J4DOMPMTHit();
   J4DOMPMTHit( J4VComponent  *dtc,
                G4ThreeVector  pre,
-               G4double       edep,           // Energy Deposit
+               G4ThreeVector  localpos,
+               G4ThreeVector  localdir,
+               G4double       ce,
+			   G4double       edep,           // Energy Deposit
                G4double       tof ) ;         // TOF 
   	 	            
   virtual ~J4DOMPMTHit();
@@ -56,12 +60,16 @@ public:
   inline G4ThreeVector GetPosition()       const { return fPosition;      }
   inline G4double      GetEnerygDeposit()  const { return fEnergyDep;     }
   inline G4double      GetTof()            const { return fTof;           }
+  inline G4ThreeVector GetLocalPosition()  const { return fLocalPosition; }
+  inline G4ThreeVector GetLocalDirection() const { return fLocalDirection; }
 
   // setters 
 
   inline void SetPosition(G4ThreeVector x) { fPosition   = x; }
   inline void SetEnergyDeposit(G4double x) { fEnergyDep  = x; }
   inline void SetTof          (G4double x) { fTof        = x; }
+  inline void SetLocalPosition(G4ThreeVector x) { fLocalPosition   = x; }
+  inline void SetLocalDirection(G4ThreeVector x) { fLocalDirection   = x; }
     
 private: 
 
@@ -69,8 +77,11 @@ private:
   static J4Output              *fOutput;       // Pointer to Output Module
 
   G4ThreeVector fPosition;    // position
+  G4ThreeVector fLocalPosition;    // position
+  G4ThreeVector fLocalDirection;    // position
   G4double      fEnergyDep;   // edep
   G4double      fTof;         // tof 
+  G4double      fCE;         // ce
   
 };
 
